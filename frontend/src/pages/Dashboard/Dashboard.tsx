@@ -4,20 +4,18 @@ import {
   Box,
   Paper,
   Typography,
-  List,
-  ListItem,
-  Divider,
 } from "@mui/material";
 
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import BusinessIcon from "@mui/icons-material/Business";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import EventBusyIcon from "@mui/icons-material/EventBusy";
 import PaymentsIcon from "@mui/icons-material/Payments";
-import DescriptionIcon from "@mui/icons-material/Description";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import Button from "@mui/material/Button";
+import LinearProgress from "@mui/material/LinearProgress";
 
 import { getDashboardStats } from "../../services/dashboardService";
+
+import { useNavigate } from "react-router-dom";
 
 import AdminLayout from "../../layouts/AdminLayout/AdminLayout";
 
@@ -25,6 +23,8 @@ const Dashboard = () => {
 
   const [stats, setStats] =
     useState<any>(null);
+
+    const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -76,13 +76,6 @@ const Dashboard = () => {
   },
 
   {
-    title: "Departments",
-    value: stats.totalDepartments,
-    icon: <BusinessIcon fontSize="large" />,
-    color: "#2563EB",
-  },
-
-  {
     title: "Present Today",
     value: stats.presentToday,
     icon: <AccessTimeIcon fontSize="large" />,
@@ -97,74 +90,83 @@ const Dashboard = () => {
   },
 
   {
-    title: "Payroll Records",
-    value: stats.totalPayrolls,
+    title: "Monthly Payroll",
+    value: `₹${stats.monthlyPayroll.toLocaleString(
+      "en-IN"
+    )}`,
     icon: <PaymentsIcon fontSize="large" />,
     color: "#7C3AED",
   },
-
-  {
-    title: "Salary Slips",
-    value: stats.totalSalarySlips,
-    icon: <DescriptionIcon fontSize="large" />,
-    color: "#EA580C",
-  },
-
-  {
-    title: "Approved Leaves",
-    value: stats.approvedLeaves,
-    icon: <CheckCircleIcon fontSize="large" />,
-    color: "#059669",
-  },
-];
-
-  const recentEmployees = [
-  "Rahul Sharma",
-  "Priya Patel",
-  "Amit Kumar",
-  "Sneha Joshi",
-  "Rohan Desai",
-];
-
-const pendingRequests = [
-  "Rahul - Sick Leave",
-  "Priya - Casual Leave",
-  "Amit - Annual Leave",
 ];
 
   return (
   <AdminLayout>
 
-    <Box sx={{ mb: 4 }}>
-      <Typography
-        variant="h4"
-        sx={{
-          fontWeight: 700,
-          mb: 1,
-        }}
-      >
-        Welcome Back 👋
-      </Typography>
+    <Paper
+  elevation={0}
+  sx={{
+    p: 4,
+    mb: 4,
+    borderRadius: 4,
+    background:
+      "linear-gradient(135deg,#0F766E,#14B8A6)",
+    color: "white",
+  }}
+>
+  <Typography
+    variant="h4"
+    sx={{
+      fontWeight: 700,
+      mb: 1,
+    }}
+  >
+    Welcome Back 👋
+  </Typography>
 
-      <Typography
-        variant="body1"
-        color="text.secondary"
-      >
-        StaffCore Workforce Dashboard
-      </Typography>
-    </Box>
+  <Typography
+    variant="body1"
+  >
+    Monitor attendance,
+    payroll and workforce
+    activity from one place.
+  </Typography>
 
+  <Typography
+    sx={{
+      mt: 2,
+      fontWeight: 600,
+    }}
+  >
+    Attendance Rate:
+    {` ${stats.attendancePercentage}%`}
+
+    <Typography
+  sx={{
+    mt: 2,
+    opacity: 0.9,
+  }}
+>
+  {new Date().toLocaleDateString(
+    "en-IN",
+    {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }
+  )}
+</Typography>
+  </Typography>
+</Paper>
     {/* KPI Cards */}
 
     <Box
       sx={{
         display: "grid",
         gridTemplateColumns: {
-          xs: "1fr",
-          sm: "1fr 1fr",
-          md: "repeat(4, 1fr)",
-          xl: "repeat(7, 1fr)",
-        },
+  xs: "1fr",
+  sm: "1fr 1fr",
+  lg: "repeat(4, 1fr)",
+},
         gap: 3,
       }}
     >
@@ -175,7 +177,11 @@ const pendingRequests = [
           sx={{
             p: 4,
             borderRadius: 5,
-            border: "1px solid #E5E7EB",
+            borderTop: `4px solid ${card.color}`,
+            borderLeft: "1px solid #E5E7EB",
+            borderRight: "1px solid #E5E7EB",
+            borderBottom: "1px solid #E5E7EB",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
           }}
         >
           <Box
@@ -216,124 +222,323 @@ const pendingRequests = [
       ))}
     </Box>
 
-    {/* Dashboard Widgets */}
+    <Box
+  sx={{
+    display: "grid",
+    gridTemplateColumns: {
+      xs: "1fr",
+      lg: "1fr 1fr",
+    },
+    gap: 3,
+    mt: 4,
+  }}
+>
+
+  {/* Attendance Overview */}
+
+<Paper
+  elevation={0}
+  sx={{
+    p: 3,
+    borderRadius: 4,
+    border: "1px solid #E5E7EB",
+  }}
+>
+  <Typography
+    variant="h6"
+    sx={{
+      mb: 3,
+      fontWeight: 600,
+    }}
+  >
+    Attendance Overview
+  </Typography>
+
+  <Typography sx={{ mb: 1 }}>
+    Attendance Rate:
+    {` ${stats.attendancePercentage}%`}
+  </Typography>
+
+  <LinearProgress
+    variant="determinate"
+    value={stats.attendancePercentage}
+    sx={{
+      height: 10,
+      borderRadius: 5,
+      mb: 3,
+    }}
+  />
+
+  <Box sx={{ mt: 3 }}>
+
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        mb: 2,
+      }}
+    >
+      <Typography sx={{ color: "#16A34A" }}>
+        Present
+      </Typography>
+
+      <Typography
+        sx={{ fontWeight: 700 }}
+      >
+        {stats.presentToday}
+      </Typography>
+    </Box>
+
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        mb: 2,
+      }}
+    >
+      <Typography sx={{ color: "#DC2626" }}>
+        Absent
+      </Typography>
+
+      <Typography
+        sx={{ fontWeight: 700 }}
+      >
+        {stats.absentToday}
+      </Typography>
+    </Box>
+
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+      }}
+    >
+      <Typography sx={{ color: "#EA580C" }}>
+        Pending Leaves
+      </Typography>
+
+      <Typography
+        sx={{ fontWeight: 700 }}
+      >
+        {stats.pendingLeaves}
+      </Typography>
+    </Box>
+
+  </Box>
+</Paper>
+
+  {/* Quick Actions */}
+
+  <Paper
+    elevation={0}
+    sx={{
+      p: 3,
+      borderRadius: 4,
+      border: "1px solid #E5E7EB",
+    }}
+  >
+    <Typography
+      variant="h6"
+      sx={{
+        mb: 3,
+        fontWeight: 600,
+      }}
+    >
+      Quick Actions
+    </Typography>
 
     <Box
       sx={{
         display: "grid",
-        gridTemplateColumns: {
-          xs: "1fr",
-          lg: "1fr 1fr 1fr",
-        },
-        gap: 3,
-        mt: 4,
+        gap: 2,
       }}
     >
-      <Paper
-        elevation={0}
-        sx={{
-          p: 3,
-          borderRadius: 5,
-          border: "1px solid #E5E7EB",
-        }}
-      >
-        <Typography
-          variant="h6"
-          sx={{
-            mb: 2,
-            fontWeight: 600,
-          }}
-        >
-          Recent Employees
-        </Typography>
+      <Button
+  variant="contained"
+  onClick={() => navigate("/employees")}
+  sx={{
+    py: 1.2,
+    borderRadius: 2,
+    textTransform: "none",
+    fontWeight: 600,
+  }}
+>
+  Add Employee
+</Button>
 
-        <List>
-          {recentEmployees.map(
-            (employee, index) => (
-              <ListItem
-                key={index}
-                sx={{ px: 0 }}
-              >
-                {employee}
-              </ListItem>
-            )
-          )}
-        </List>
-      </Paper>
+      <Button
+  variant="contained"
+  onClick={() => navigate("/attendance")}
+  sx={{
+    py: 1.2,
+    borderRadius: 2,
+    textTransform: "none",
+    fontWeight: 600,
+  }}
+>
+  Attendance
+</Button>
 
-      <Paper
-        elevation={0}
-        sx={{
-          p: 3,
-          borderRadius: 5,
-          border: "1px solid #E5E7EB",
-        }}
-      >
-        <Typography
-          variant="h6"
-          sx={{
-            mb: 2,
-            fontWeight: 600,
-          }}
-        >
-          Attendance Summary
-        </Typography>
+  <Button
+  variant="contained"
+  onClick={() => navigate("/payroll")}
+  sx={{
+    py: 1.2,
+    borderRadius: 2,
+    textTransform: "none",
+    fontWeight: 600,
+  }}
+>
+  Generate Payroll
+  </Button>
 
-        <Typography sx={{ mb: 2 }}>
-          Present: {stats.presentToday}
-        </Typography>
-
-        <Divider />
-
-        <Typography sx={{ my: 2 }}>
-          Absent: {
-  Math.max(
-    stats.totalEmployees -
-    stats.presentToday,
-    0
-  )
-}
-        </Typography>
-
-        <Divider />
-
-        <Typography sx={{ mt: 2 }}>
-          On Leave: {stats.approvedLeaves}
-        </Typography>
-      </Paper>
-
-      <Paper
-        elevation={0}
-        sx={{
-          p: 3,
-          borderRadius: 5,
-          border: "1px solid #E5E7EB",
-        }}
-      >
-        <Typography
-          variant="h6"
-          sx={{
-            mb: 2,
-            fontWeight: 600,
-          }}
-        >
-          Pending Leave Requests
-        </Typography>
-
-        <List>
-          {pendingRequests.map(
-            (leave, index) => (
-              <ListItem
-                key={index}
-                sx={{ px: 0 }}
-              >
-                {leave}
-              </ListItem>
-            )
-          )}
-        </List>
-      </Paper>
+  <Button
+  variant="contained"
+  onClick={() => navigate("/salary-slips")}
+  sx={{
+    py: 1.2,
+    borderRadius: 2,
+    textTransform: "none",
+    fontWeight: 600,
+  }}
+>
+  Salary Slips
+  </Button>
     </Box>
+  </Paper>
+
+  {/* Workforce Summary */}
+
+<Paper
+  elevation={0}
+  sx={{
+    p: 3,
+    borderRadius: 4,
+    border: "1px solid #E5E7EB",
+    gridColumn: {
+      lg: "span 2",
+    },
+  }}
+>
+  <Typography
+    variant="h6"
+    sx={{
+      mb: 3,
+      fontWeight: 600,
+    }}
+  >
+    Workforce Summary
+  </Typography>
+
+  <Box
+    sx={{
+      display: "grid",
+      gridTemplateColumns: {
+        xs: "1fr",
+        md: "repeat(5,1fr)",
+      },
+      gap: 3,
+    }}
+  >
+  <Box>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+    >
+      Employees
+    </Typography>
+
+    <Typography
+  variant="h5"
+  sx={{
+    fontWeight: 700,
+  }}
+>
+      {stats.totalEmployees}
+    </Typography>
+  </Box>
+
+  <Box>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+    >
+      Present
+    </Typography>
+
+    <Typography
+  variant="h5"
+  sx={{
+    fontWeight: 700,
+    color: "#16A34A",
+  }}
+>
+      {stats.presentToday}
+    </Typography>
+  </Box>
+
+  <Box>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+    >
+      Absent
+    </Typography>
+
+    <Typography
+  variant="h5"
+  sx={{
+    fontWeight: 700,
+    color: "#DC2626",
+  }}
+>
+      {stats.absentToday}
+    </Typography>
+  </Box>
+
+  <Box>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+    >
+      Pending Leaves
+    </Typography>
+
+    <Typography
+  variant="h5"
+  sx={{
+    fontWeight: 700,
+    color: "#EA580C",
+  }}
+>
+      {stats.pendingLeaves}
+    </Typography>
+  </Box>
+
+  <Box>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+    >
+      Payroll
+    </Typography>
+
+    <Typography
+  variant="h5"
+  sx={{
+    fontWeight: 700,
+    color: "#7C3AED",
+  }}
+>
+      ₹
+      {stats.monthlyPayroll.toLocaleString(
+        "en-IN"
+      )}
+    </Typography>
+  </Box>
+  </Box>
+</Paper>
+</Box>
 
   </AdminLayout>
 );
