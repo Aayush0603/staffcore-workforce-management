@@ -863,32 +863,40 @@ doc
 
 doc.moveDown(10);
 
-doc.moveTo(40, 500)
-   .lineTo(555, 500)
-   .stroke();
+const footerY = 700;
 
 doc
-  .fontSize(10)
+  .moveTo(40, footerY)
+  .lineTo(555, footerY)
+  .stroke("#D1D5DB");
+
+doc
+  .fontSize(9)
   .fillColor("gray")
   .text(
     `Generated On: ${new Date().toLocaleDateString("en-GB")}`,
     40,
-    520,
+    footerY + 10,
     {
       width: 515,
-      align: "center"
+      align: "center",
     }
   );
 
-doc.text(
-  "This is a computer-generated salary slip and does not require a signature.",
-  {
-    width: 515,
-    align: "center"
-  }
-);
+doc
+  .text(
+    "Generated electronically by StaffCore Workforce Management System",
+    40,
+    footerY + 25,
+    {
+      width: 515,
+      align: "center",
+    }
+  );
 
 doc.moveDown(3);
+
+const signatureY = 620;
 
 if (
   organization?.signature_url
@@ -896,10 +904,12 @@ if (
 
   try {
 
-    doc.image(
-      `.${organization.signature_url}`,
-      400,
-      doc.y,
+const signatureY = 620;
+
+doc.image(
+  `.${organization.signature_url}`,
+  400,
+  signatureY,
       {
         fit: [120, 60],
       }
@@ -922,7 +932,7 @@ doc
     organization?.authorized_signatory ||
     "Authorized Signatory",
     380,
-    doc.y,
+    signatureY + 70,
     {
       align: "center",
     }
@@ -934,7 +944,7 @@ doc
     organization?.authorized_designation ||
     "",
     380,
-    doc.y,
+    signatureY + 90,
     {
       align: "center",
     }
