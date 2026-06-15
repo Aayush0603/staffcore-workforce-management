@@ -10,7 +10,6 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Employees from "./pages/Employees/Employees";
 import Attendance from "./pages/Attendance/Attendance";
-import LeaveManagement from "./pages/LeaveManagement/LeaveManagement";
 import Payroll from "./pages/Payroll/Payroll";
 import AddEmployee from"./pages/Employees/AddEmployee";
 import SalarySlips from "./pages/SalarySlips/SalarySlips";
@@ -70,15 +69,6 @@ function App() {
   element={
     <ProtectedRoute>
       <MonthlyAttendance />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/leave"
-  element={
-    <ProtectedRoute>
-      <LeaveManagement />
     </ProtectedRoute>
   }
 />

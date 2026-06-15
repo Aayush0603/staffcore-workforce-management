@@ -483,7 +483,6 @@ const exportToPDF = () => {
         >
           Monthly staff attendance sheet
         </Typography>
-
         <Paper
           sx={{
             p: 3,

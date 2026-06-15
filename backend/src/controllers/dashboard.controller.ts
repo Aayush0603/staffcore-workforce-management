@@ -52,14 +52,6 @@ const attendancePercentage =
       )
     : 0;
 
-    const pendingLeaves = await pool.query(
-      `
-      SELECT COUNT(*)
-      FROM leave_requests
-      WHERE status = 'PENDING'
-      `
-    );
-
     res.status(200).json({
       success: true,
 
@@ -71,9 +63,6 @@ const attendancePercentage =
     Number(presentToday.rows[0].count),
 
   absentToday,
-
-  pendingLeaves:
-    Number(pendingLeaves.rows[0].count),
 
   monthlyPayroll:
     Number(

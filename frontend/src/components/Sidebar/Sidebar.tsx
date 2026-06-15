@@ -14,7 +14,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import EventNoteIcon from "@mui/icons-material/EventNote";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GroupsIcon from "@mui/icons-material/Groups";
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -59,12 +58,6 @@ const Sidebar = () => {
   icon: <AccessTimeIcon />,
   path: "/attendance/monthly",
 },
-    {
-      text: "Leave",
-      icon: <EventNoteIcon />,
-      path: "/leave",
-    },
-
     {
       text: "Salary Structure",
       path: "/salary-structure",
