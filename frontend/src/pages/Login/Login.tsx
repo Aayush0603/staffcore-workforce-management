@@ -1,6 +1,7 @@
 import { useState } from "react";
+
 import {
-  Container,
+  Box,
   Paper,
   Typography,
   TextField,
@@ -8,15 +9,19 @@ import {
   Alert,
 } from "@mui/material";
 
-import Box from "@mui/material/Box";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+
 import { useNavigate } from "react-router-dom";
 
 import { loginUser } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
+
   const { login } = useAuth();
-  const navigate = useNavigate();
+
+  const navigate =
+    useNavigate();
 
   const [username, setUsername] =
     useState("");
@@ -27,90 +32,197 @@ const Login = () => {
   const [error, setError] =
     useState("");
 
-  const handleLogin = async () => {
-    try {
-      setError("");
+  const [loading, setLoading] =
+    useState(false);
 
-      const data = await loginUser(
-        username,
-        password
-      );
+  const handleLogin =
+    async () => {
 
-      login(data.token);
+      try {
 
-      navigate("/dashboard");
-      
+        setError("");
 
-      alert("Login Successful");
+        setLoading(true);
 
-    } catch (err: any) {
-      setError(
-        err?.response?.data?.message ||
-        "Login Failed"
-      );
-    }
-  };
+        const data =
+          await loginUser(
+            username,
+            password
+          );
+
+        login(
+          data.token
+        );
+
+        navigate(
+          "/dashboard"
+        );
+
+      } catch (err: any) {
+
+        setError(
+          err?.response?.data
+            ?.message ||
+          "Invalid username or password"
+        );
+
+      } finally {
+
+        setLoading(false);
+
+      }
+    };
 
   return (
-    <Container maxWidth="sm">
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background:
+          "linear-gradient(135deg,#0F766E,#14B8A6)",
+        px: 2,
+      }}
+    >
+
       <Paper
-        elevation={4}
+        elevation={8}
         sx={{
-          p: 4,
-          mt: 10,
+          width: "100%",
+          maxWidth: 450,
+          p: 5,
+          borderRadius: 4,
         }}
       >
+
+        {/* Logo */}
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent:
+              "center",
+            mb: 2,
+          }}
+        >
+          <Box
+            sx={{
+              width: 70,
+              height: 70,
+              borderRadius: "50%",
+              background:
+                "#0F766E",
+              display: "flex",
+              alignItems: "center",
+              justifyContent:
+                "center",
+            }}
+          >
+            <PeopleAltIcon
+              sx={{
+                color: "white",
+                fontSize: 38,
+              }}
+            />
+          </Box>
+        </Box>
+
+        {/* Branding */}
+
         <Typography
           variant="h4"
-          gutterBottom
           align="center"
+          sx={{
+            fontWeight: 700,
+            color: "#0F766E",
+          }}
         >
-          Hospital Login
+          StaffCore
         </Typography>
 
+        <Typography
+          align="center"
+          sx={{
+            color: "#6B7280",
+            mt: 1,
+            mb: 4,
+          }}
+        >
+          Workforce Management System
+        </Typography>
+
+        {/* Error */}
+
         {error && (
-          <Alert severity="error">
+          <Alert
+            severity="error"
+            sx={{
+              mb: 2,
+            }}
+          >
             {error}
           </Alert>
         )}
 
-        <Box sx={{ mt: 2 }}>
-          <TextField
-            label="Username"
-            fullWidth
-            margin="normal"
-            value={username}
-            onChange={(e) =>
-              setUsername(
-                e.target.value
-              )
-            }
-          />
+        {/* Username */}
 
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            margin="normal"
-            value={password}
-            onChange={(e) =>
-              setPassword(
-                e.target.value
-              )
-            }
-          />
+        <TextField
+          label="Username"
+          fullWidth
+          margin="normal"
+          value={username}
+          onChange={(e) =>
+            setUsername(
+              e.target.value
+            )
+          }
+        />
 
-          <Button
-            variant="contained"
-            fullWidth
-            sx={{ mt: 2 }}
-            onClick={handleLogin}
-          >
-            Login
-          </Button>
-        </Box>
+        {/* Password */}
+
+        <TextField
+          label="Password"
+          type="password"
+          fullWidth
+          margin="normal"
+          value={password}
+          onChange={(e) =>
+            setPassword(
+              e.target.value
+            )
+          }
+        />
+
+        {/* Login Button */}
+
+        <Button
+          variant="contained"
+          fullWidth
+          size="large"
+          sx={{
+            mt: 3,
+            py: 1.5,
+            borderRadius: 2,
+            backgroundColor:
+              "#0F766E",
+
+            "&:hover": {
+              backgroundColor:
+                "#115E59",
+            },
+          }}
+          disabled={loading}
+          onClick={handleLogin}
+        >
+          {loading
+            ? "Signing In..."
+            : "Sign In"}
+        </Button>
+
       </Paper>
-    </Container>
+
+    </Box>
   );
 };
 

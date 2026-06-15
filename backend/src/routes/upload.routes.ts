@@ -14,6 +14,14 @@ import {
   authenticateToken,
 } from "../middleware/auth.middleware";
 
+import {
+  organizationUpload,
+} from "../middleware/organizationUpload.middleware";
+
+import {
+  uploadOrganizationFile,
+} from "../controllers/upload.controller";
+
 const router =
   Router();
 
@@ -24,6 +32,13 @@ router.post(
     "file"
   ),
   uploadJoiningLetter
+);
+
+router.post(
+  "/organization/:type",
+  authenticateToken,
+  organizationUpload.single("file"),
+  uploadOrganizationFile
 );
 
 export default router;

@@ -19,6 +19,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import {
   useNavigate,
@@ -75,6 +76,12 @@ const Sidebar = () => {
       icon: <DescriptionIcon />,
       path: "/salary-slips",
     },
+
+    {
+  text: "Organization Settings",
+  icon: <SettingsIcon />,
+  path: "/organization-settings",
+},
   ];
 
   return (

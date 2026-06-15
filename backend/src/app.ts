@@ -20,6 +20,7 @@ import uploadRoutes from "./routes/upload.routes";
 import salaryStructureRoutes from "./routes/salaryStructure.routes";
 import payrollAdjustmentRoutes from "./routes/payrollAdjustment.routes";
 import payrollExportRoutes from "./routes/payrollExport.routes";
+import organizationRoutes from "./routes/organization.routes";
 
 
 const app = express();
@@ -50,6 +51,7 @@ app.use("/api/upload",uploadRoutes);
 app.use("/api/salary-structures",salaryStructureRoutes);
 app.use("/api/payroll-adjustments",payrollAdjustmentRoutes);
 app.use("/api/payroll/export",payrollExportRoutes);
+app.use("/api/organization",organizationRoutes);
 
 
 app.use(

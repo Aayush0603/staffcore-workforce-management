@@ -16,7 +16,7 @@ import SalarySlips from "./pages/SalarySlips/SalarySlips";
 import ShiftManagement from "./pages/ShiftManagement/ShiftManagement";
 import MonthlyAttendance from "./pages/Attendance/MonthlyAttendance";
 import SalaryStructure from "./pages/SalaryStructure/SalaryStructure";
-
+import OrganizationSettings from "./pages/OrganizationSettings/OrganizationSettings";
 
 function App() {
   return (
@@ -92,6 +92,15 @@ function App() {
   element={
     <ProtectedRoute>
       <SalarySlips />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/organization-settings"
+  element={
+    <ProtectedRoute>
+      <OrganizationSettings />
     </ProtectedRoute>
   }
 />
