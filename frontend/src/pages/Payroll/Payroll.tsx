@@ -401,27 +401,7 @@ const handleDownloadPdf =
 
   return (
     <AdminLayout>
-      <Box>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 700,
-            mb: 1,
-          }}
-        >
-          Payroll Management
-        </Typography>
-
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          sx={{
-            mb: 4,
-          }}
-        >
-          Manage employee salary
-          records
-        </Typography>
+      <Box sx={{ mt: 2 }}>
 
         <Paper
   sx={{

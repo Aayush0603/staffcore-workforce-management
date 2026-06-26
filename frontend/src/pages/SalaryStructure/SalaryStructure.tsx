@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Paper,
-  Typography,
   Button,
   TextField,
   MenuItem,
@@ -186,16 +185,7 @@ const [salaryHistory, setSalaryHistory] =
 
   return (
     <AdminLayout>
-      <Box>
-        <Typography
-  variant="h4"
-  sx={{
-    fontWeight: 700,
-    mb: 3,
-  }}
->
-  Salary Structure
-</Typography>
+      <Box sx={{ mt: 2 }}>
 
         <Button
           variant="contained"

@@ -196,24 +196,6 @@ const ShiftManagement = () => {
 
   return (
     <AdminLayout>
-      <Box sx={{ mb: 4 }}>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 700,
-            mb: 1,
-          }}
-        >
-          Shift Management
-        </Typography>
-
-        <Typography
-          variant="body1"
-          color="text.secondary"
-        >
-          Assign and manage employee shifts
-        </Typography>
-      </Box>
 
       <Box
         sx={{

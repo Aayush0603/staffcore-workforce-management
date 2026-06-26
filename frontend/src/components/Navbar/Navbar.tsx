@@ -8,16 +8,17 @@ import {
 } from "@mui/material";
 
 import NotificationsNoneIcon
-from "@mui/icons-material/NotificationsNone";
+  from "@mui/icons-material/NotificationsNone";
 
 const Navbar = () => {
   return (
     <AppBar
       position="fixed"
-      elevation={1}
+      elevation={0}
       sx={{
-        bgcolor: "#ffffff",
-        color: "#111827",
+        bgcolor: "rgba(169, 180, 190, 0.8)",
+        backdropFilter: "blur(12px)",
+        color: "#484c53ff",
 
         width: {
           md: "calc(100% - 240px)",
@@ -29,98 +30,97 @@ const Navbar = () => {
           xs: 0,
         },
 
-        borderBottom:
-          "1px solid #E5E7EB",
+        borderBottom: "none",
       }}
     >
       <Toolbar
         sx={{
-  minHeight: "64px",
-}}
+          minHeight: "64px",
+        }}
       >
         <Box sx={{ flexGrow: 1 }}>
           <Typography
-  variant="h6"
-  sx={{
-    fontWeight: 700,
-    color: "#0F766E",
-  }}
->
-  StaffCore
-</Typography>
+            variant="h6"
+            sx={{
+              fontWeight: 700,
+              color: "#0F766E",
+            }}
+          >
+            StaffCore
+          </Typography>
 
-         <Typography
-  variant="body2"
-  sx={{
-    color: "#6B7280",
-    fontWeight: 500,
-  }}
->
-  Workforce Management System
-</Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "#6B7280",
+              fontWeight: 500,
+            }}
+          >
+            Workforce Management System
+          </Typography>
         </Box>
 
         <IconButton
-        onClick={() =>
-  alert("No new notifications")
-}
-  sx={{
-    border: "1px solid #E5E7EB",
-    borderRadius: 2,
-  }}
->
-  <NotificationsNoneIcon />
-</IconButton>
+          onClick={() =>
+            alert("No new notifications")
+          }
+          sx={{
+            border: "1px solid #E5E7EB",
+            borderRadius: 2,
+          }}
+        >
+          <NotificationsNoneIcon />
+        </IconButton>
 
-       <Box
-  onClick={() =>
-    alert("Profile menu coming soon")
-  }
-  sx={{
-    display: "flex",
-    alignItems: "center",
-    ml: 2,
-    gap: 1.5,
-    cursor: "pointer",
-    p: 1,
-    borderRadius: 2,
+        <Box
+          onClick={() =>
+            alert("Profile menu coming soon")
+          }
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            ml: 2,
+            gap: 1.5,
+            cursor: "pointer",
+            p: 1,
+            borderRadius: 2,
 
-    "&:hover": {
-      backgroundColor: "#F8FAFC",
-    },
-  }}
->
-  <Avatar
-    sx={{
-      bgcolor: "#0F766E",
-      width: 40,
-      height: 40,
-    }}
-  >
-    A
-  </Avatar>
+            "&:hover": {
+              backgroundColor: "#F8FAFC",
+            },
+          }}
+        >
+          <Avatar
+            sx={{
+              bgcolor: "#0F766E",
+              width: 40,
+              height: 40,
+            }}
+          >
+            A
+          </Avatar>
 
-  <Box>
-    <Typography
-      variant="body2"
-      sx={{
-        fontWeight: 600,
-        lineHeight: 1.2,
-      }}
-    >
-      Admin
-    </Typography>
+          <Box>
+            <Typography
+              variant="body2"
+              sx={{
+                fontWeight: 600,
+                lineHeight: 1.2,
+              }}
+            >
+              Admin
+            </Typography>
 
-    <Typography
-      variant="caption"
-      sx={{
-        color: "#6B7280",
-      }}
-    >
-      Administrator
-    </Typography>
-  </Box>
-</Box>
+            <Typography
+              variant="caption"
+              sx={{
+                color: "#6B7280",
+              }}
+            >
+              Administrator
+            </Typography>
+          </Box>
+        </Box>
       </Toolbar>
     </AppBar>
   );

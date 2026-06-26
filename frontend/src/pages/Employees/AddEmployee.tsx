@@ -788,32 +788,6 @@ if (
   return (
   <AdminLayout>
 
-    <Box
-      sx={{
-        mb: 4,
-      }}
-    >
-      <Typography
-        variant="h4"
-        sx={{
-          fontWeight: 700,
-          mb: 1,
-        }}
-      >
-        {isEditMode
-          ? "Edit Employee"
-          : "Add Employee"}
-      </Typography>
-
-      <Typography
-        variant="body1"
-        color="text.secondary"
-      >
-        Manage employee profile, personal,
-        employment and banking details.
-      </Typography>
-    </Box>
-
     <Paper
       elevation={0}
       sx={{
@@ -828,23 +802,7 @@ if (
       }}
     >
 
-      <Box sx={{ mb: 3 }}>
-  <Typography
-    variant="h4"
-    sx={{
-      fontWeight: 700,
-      mb: 1,
-    }}
-  >
-    Add Employee
-  </Typography>
 
-  <Typography
-    color="text.secondary"
-  >
-    Create and manage employee records in StaffCore.
-  </Typography>
-</Box>
 
         <Stepper
   activeStep={activeStep}

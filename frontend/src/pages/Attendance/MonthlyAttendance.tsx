@@ -7,7 +7,6 @@ import { Button } from "@mui/material";
 import {
   Box,
   Paper,
-  Typography,
   TextField,
   MenuItem,
   CircularProgress,
@@ -461,28 +460,7 @@ const exportToPDF = () => {
 
   return (
     <AdminLayout>
-
-      <Box>
-
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 700,
-            mb: 1,
-          }}
-        >
-          Monthly Attendance
-        </Typography>
-
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          sx={{
-            mb: 3,
-          }}
-        >
-          Monthly staff attendance sheet
-        </Typography>
+      <Box sx={{ mt: 2 }}>
         <Paper
           sx={{
             p: 3,
