@@ -47,78 +47,7 @@ interface AttendanceRecord {
   department_name: string;
 }
 
-const staticAttendanceData: AttendanceRecord[] = [
-  {
-    id: 1,
-    attendance_date: "2023-10-25T00:00:00Z",
-    check_in: "2023-10-25T09:00:00Z",
-    check_out: "2023-10-25T18:00:00Z",
-    total_hours: 9,
-    overtime_hours: 1,
-    fine_minutes: 0,
-    status: "PRESENT",
-    remarks: "On time",
-    employee_code: "EMP001",
-    full_name: "John Doe",
-    department_name: "Engineering",
-  },
-  {
-    id: 2,
-    attendance_date: "2023-10-25T00:00:00Z",
-    check_in: "2023-10-25T09:30:00Z",
-    check_out: "2023-10-25T18:00:00Z",
-    total_hours: 8.5,
-    overtime_hours: 0,
-    fine_minutes: 30,
-    status: "PRESENT",
-    remarks: "Late arrival",
-    employee_code: "EMP002",
-    full_name: "Jane Smith",
-    department_name: "Marketing",
-  },
-  {
-    id: 3,
-    attendance_date: "2023-10-25T00:00:00Z",
-    check_in: "",
-    check_out: "",
-    total_hours: 0,
-    overtime_hours: 0,
-    fine_minutes: 0,
-    status: "ABSENT",
-    remarks: "Sick leave",
-    employee_code: "EMP003",
-    full_name: "Alice Johnson",
-    department_name: "Sales",
-  },
-  {
-    id: 4,
-    attendance_date: "2023-10-25T00:00:00Z",
-    check_in: "2023-10-25T08:50:00Z",
-    check_out: "2023-10-25T19:00:00Z",
-    total_hours: 10.16,
-    overtime_hours: 2.16,
-    fine_minutes: 0,
-    status: "PRESENT",
-    remarks: "Extra work",
-    employee_code: "EMP004",
-    full_name: "Bob Brown",
-    department_name: "Engineering",
-  },
-  {
-    id: 5,
-    attendance_date: "2023-10-26T00:00:00Z",
-    check_in: "2023-10-26T09:05:00Z",
-    check_out: "2023-10-26T18:05:00Z",
-    total_hours: 9,
-    overtime_hours: 1,
-    fine_minutes: 5,
-    status: "PRESENT",
-    remarks: "",
-    employee_code: "EMP001",
-    full_name: "John Doe",
-    department_name: "Engineering",
-  }
-];
+
 
 const Attendance = () => {
   const [attendance, setAttendance] = useState<AttendanceRecord[]>([]);
@@ -143,16 +72,11 @@ const Attendance = () => {
 
   const fetchAttendance = async () => {
     try {
-      // const response = await getAttendance();
-      // setAttendance(response.data || []);
-      // setFilteredAttendance(response.data || []);
-      
-      // Using static data for now until backend is added
-      setTimeout(() => {
-        setAttendance(staticAttendanceData);
-        setFilteredAttendance(staticAttendanceData);
-        setLoading(false);
-      }, 500);
+      const data = await getAttendance();
+      const records = data?.data || data || [];
+      setAttendance(records);
+      setFilteredAttendance(records);
+      setLoading(false);
     } catch (error) {
       console.error("Failed to fetch attendance:", error);
       setLoading(false);
@@ -239,12 +163,14 @@ const Attendance = () => {
               onChange={(e) => setSearch(e.target.value)}
               size="small"
               sx={{ minWidth: 280, backgroundColor: '#fafafa', '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon fontSize="small" sx={{ color: '#999' }} />
-                  </InputAdornment>
-                ),
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon fontSize="small" sx={{ color: '#999' }} />
+                    </InputAdornment>
+                  )
+                }
               }}
             />
 
@@ -257,7 +183,7 @@ const Attendance = () => {
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
                 variant="standard"
-                InputProps={{ disableUnderline: true }}
+                slotProps={{ input: { disableUnderline: true } }}
                 sx={{ '& input': { p: 0, color: '#333', fontSize: '0.875rem', fontFamily: 'inherit' } }}
               />
             </Box>
