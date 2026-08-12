@@ -20,6 +20,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { keyframes } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { loginUser } from "../../services/authService";
 
 const gradientAnimation = keyframes`
   0% { background-position: 0% 50%; }
@@ -54,10 +55,7 @@ const Login = () => {
       setError("");
       setLoading(true);
 
-      // BYPASS BACKEND
-      // const data = await loginUser(username, password);
-
-      const data = { token: "fake-jwt-token-for-bypassing-backend" };
+      const data = await loginUser(username, password);
       
       // Simulate network delay for effect
       await new Promise(resolve => setTimeout(resolve, 800));
